@@ -1,6 +1,7 @@
 import { AppBar, Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
 import ImageIcon from '@mui/icons-material/Image';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Link } from "react-router-dom";
 
 interface NavigationProps {
 	children: React.ReactNode;
@@ -10,18 +11,21 @@ interface NavigationProps {
 interface NavigationDrawerButtonProps {
 	icon: React.ReactNode;
 	text: string;
+	to: string;
 }
 
-function NavigationDrawerButton({ icon, text }: NavigationDrawerButtonProps) {
+function NavigationDrawerButton({ icon, text, to }: NavigationDrawerButtonProps) {
 	return (
-		<ListItem disablePadding>
-			<ListItemButton>
-				<ListItemIcon>
-					{icon}
-				</ListItemIcon>
-				<ListItemText primary={text} />
-			</ListItemButton>
-		</ListItem>
+		<Link to={to}  style={{ textDecoration: "none", color: "white" }}>
+			<ListItem disablePadding>
+				<ListItemButton>
+					<ListItemIcon>
+						{icon}
+					</ListItemIcon>
+					<ListItemText primary={text} />
+				</ListItemButton>
+			</ListItem>
+		</Link>
 	)
 }
 
@@ -46,11 +50,8 @@ function Navigation({ children, drawerWidth }: NavigationProps) {
 				<Toolbar />
 				<Box sx={{ overflow: "auto" }}>
 					<List>
-						<NavigationDrawerButton text="View Images" icon={<ImageIcon />} />
-					</List>
-
-					<List sx={{ marginTop: "auto" }}>
-						<NavigationDrawerButton text="Login" icon={<AccountCircleIcon />} />
+						<NavigationDrawerButton text="View Images" icon={<ImageIcon />} to="/" />
+						<NavigationDrawerButton text="Login" icon={<AccountCircleIcon />} to="/login" />
 					</List>
 				</Box>
 			</Drawer>
