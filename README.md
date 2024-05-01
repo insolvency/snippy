@@ -1,5 +1,5 @@
 # Snippy
 
-Image uploader
+Image uploader (very not finished)
 
 ![Snippy preview](preview.png)
