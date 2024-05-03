@@ -4,14 +4,14 @@ Image uploader (very not finished)
 
 ![Snippy preview](preview.png)
 
-# API Routes
+## API Routes
 
  - POST `/auth/login`
  - GET `/user/me` (Authenticated)
  - POST `/file/upload` (Authenticated)
  - GET `/file/view/:filename`
 
-# Example Sharex Configuration
+## Example Sharex Configuration
 
 ```json
 {
