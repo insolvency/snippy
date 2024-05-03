@@ -9,6 +9,7 @@ import Root from './components/pages/Root';
 import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import Upload from './components/pages/Upload';
 
 const router = createBrowserRouter([
 	{
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
 			{
 				path: "/login",
 				element: <Login />,
+			},
+			{
+				path: "/upload",
+				element: <Upload />,
 			},
 		],
 	},

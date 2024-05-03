@@ -1,6 +1,7 @@
 import { AppBar, Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
 import ImageIcon from '@mui/icons-material/Image';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { Link } from "react-router-dom";
 
 interface NavigationProps {
@@ -51,6 +52,7 @@ function Navigation({ children, drawerWidth }: NavigationProps) {
 				<Box sx={{ overflow: "auto" }}>
 					<List>
 						<NavigationDrawerButton text="View Images" icon={<ImageIcon />} to="/" />
+						<NavigationDrawerButton text="Upload" icon={<FileUploadIcon />} to="/upload" />
 						<NavigationDrawerButton text="Login" icon={<AccountCircleIcon />} to="/login" />
 					</List>
 				</Box>
