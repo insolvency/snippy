@@ -13,6 +13,9 @@ export class AuthService {
     async login(username: string, pass: string): Promise<any> {
         const user = await this.userService.user({ username });
 
+        if (!user)
+            throw new UnauthorizedException();
+
         if (!bcrypt.compareSync(pass, user?.password))
             throw new UnauthorizedException();
 
