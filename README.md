@@ -9,3 +9,4 @@ Image uploader (very not finished)
  - POST `/auth/login`
  - GET `/user/me` (Authenticated)
  - POST `/file/upload` (Authenticated)
+ - GET `/file/view/:filename`
