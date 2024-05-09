@@ -5,9 +5,6 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestExpressApplication>(AppModule);
-	app.useStaticAssets(process.env.FILES_DESTINATION, {
-		prefix: "/file/view",
-	});
 	app.useGlobalPipes(new ValidationPipe());
 	await app.listen(3000);
 }

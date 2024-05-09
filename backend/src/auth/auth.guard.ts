@@ -19,6 +19,7 @@ export class AuthGuard implements CanActivate {
         ]);
 
         if (isPublic) {
+            console.log("brug==");
             return true;
         }
 
