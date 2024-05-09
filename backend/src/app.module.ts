@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { FileModule } from './file/file.module';
+import { S3Service } from './s3/s3.service';
 
 @Module({
     imports: [
@@ -14,6 +15,6 @@ import { FileModule } from './file/file.module';
         ConfigModule.forRoot({ isGlobal: true }),
         FileModule,
     ],
-    providers: [PrismaService, UserService, AuthService],
+    providers: [PrismaService, UserService, AuthService, S3Service],
 })
 export class AppModule {}
