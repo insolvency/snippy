@@ -9,3 +9,8 @@ export interface JwtBody {
 export interface AuthenticatedRequest extends Request {
     user: JwtBody;
 }
+
+export interface NamedFile {
+    name: string;
+    file: Express.Multer.File;
+}

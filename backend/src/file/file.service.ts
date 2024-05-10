@@ -2,7 +2,9 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { S3Service } from 'src/s3/s3.service';
-import { JwtBody } from 'src/types';
+import { JwtBody, NamedFile } from 'src/types';
+import { extname } from 'path';
+import { v4 as uuidv4 } from "uuid";
 
 @Injectable()
 export class FileService {
@@ -16,19 +18,24 @@ export class FileService {
         if (!files)
             throw new InternalServerErrorException();
 
-        for (const file of files) {
+        const namedFiles: NamedFile[] = files.map(v => ({
+            name: `${uuidv4()}${extname(v.originalname)}`,
+            file: v,
+        }));
+
+        for (const namedFile of namedFiles) {
             await this.prismaService.file.create({
                 data: {
-                    fileName: file.filename,
-                    originalFileName: file.originalname,
-                    mimeType: file.mimetype,
-                    size: file.size,
+                    fileName: namedFile.name,
+                    originalFileName: namedFile.file.originalname,
+                    mimeType: namedFile.file.mimetype,
+                    size: namedFile.file.size,
                     userId: user.sub,
                 }
             });
         }
 
-        const imageUrls = await this.s3Service.uploadFiles(files);
+        const imageUrls = await this.s3Service.uploadFiles(namedFiles);
 
         // const fileNames = files.map((v) => ({
         //     imageUrl: this.configService.get<string>("BASE_URL") + "/file/view/" + v.filename,

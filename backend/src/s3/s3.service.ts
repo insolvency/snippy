@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AWSError } from 'aws-sdk';
 import * as S3 from "aws-sdk/clients/s3";
+import { NamedFile } from 'src/types';
 
 @Injectable()
 export class S3Service {
@@ -31,7 +32,7 @@ export class S3Service {
 
             s3.putObject(params, (err: AWSError, data: S3.PutObjectRequest) => {
                 if (err) reject(err);
-                resolve(`${s3.endpoint}${bucket}/${path}/${objectName}`);
+                resolve(`${s3.endpoint.href}${bucket}${path ? `/${path}` : ""}/${objectName}`);
             });
         });
     }
@@ -51,11 +52,11 @@ export class S3Service {
         });
     }
 
-    async uploadFiles(files: Array<Express.Multer.File>): Promise<string[]> {
+    async uploadFiles(namedFiles: NamedFile[]): Promise<string[]> {
         const imageUrls: string[] = [];
 
-        for (const file of files) {
-            const imageUrl = await this.s3_upload(this.configService.get<string>("S3_BUCKET_NAME"), file, file.filename);
+        for (const namedFile of namedFiles) {
+            const imageUrl = await this.s3_upload(this.configService.get<string>("S3_BUCKET_NAME"), namedFile.file, namedFile.name);
             imageUrls.push(imageUrl);
         }
 
