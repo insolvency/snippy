@@ -7,9 +7,9 @@ Image uploader (very not finished)
 ## API Routes
 
  - POST `/auth/login`
+ - PATCH `/auth/reset` (Authenticated - Allows API Key)
  - GET `/user/me` (Authenticated)
- - POST `/file/upload` (Authenticated)
- - GET `/file/view/:filename`
+ - POST `/file/upload` (Authenticated - Allows API Key)
 
 ## Example Sharex Configuration
 
