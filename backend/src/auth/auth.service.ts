@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from "bcrypt";
 import { JwtService } from '@nestjs/jwt';
+import { v4 as uuidv4 } from "uuid";
 
 @Injectable()
 export class AuthService {
@@ -21,7 +22,22 @@ export class AuthService {
 
         const payload = { sub: user.id };
         return {
-            access_token: await this.jwtService.signAsync(payload),
+            accessToken: await this.jwtService.signAsync(payload),
+        }
+    }
+
+    async resetApiKey(userId: string): Promise<any> {
+        const user = await this.userService.updateUser({
+            where: {
+                id: userId,
+            },
+            data: {
+                apiKey: uuidv4(),
+            },
+        });
+
+        return {
+            apiKey: user.apiKey
         }
     }
 }
